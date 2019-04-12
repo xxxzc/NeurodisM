@@ -9,9 +9,9 @@ import Buefy from 'buefy'
 import '@/assets/scss/index.scss'
 Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
-axios.defaults.baseURL = '/neurodism';
-// Vue.use(axios);
 Vue.use(util);
+axios.defaults.baseURL = Vue.prototype.apiserver + '/neurodism';
+// Vue.use(axios);
 Vue.use(Buefy, {
     defaultIconPack: 'fa'
 })

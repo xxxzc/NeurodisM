@@ -59,15 +59,6 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../public'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/neurodism',
-    proxyTable: {
-      '/neurodism/api': {
-        target: 'http://193.112.28.37:8070/neurodism/api/',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/neurodism/api': ''
-        }
-      }
-    },
     /**
      * Source Maps
      */
