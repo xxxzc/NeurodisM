@@ -41,7 +41,8 @@
 </template>
 
 <script>
-  import RelDiagram from './RelDiagram'
+  import RelDiagram from './RelDiagram';
+  import { debounce } from 'debounce';
   export default {
     name: "DGRelation",
     components: {
@@ -56,7 +57,6 @@
     }),
     watch: {
       genestr: function(cur, old) {
-        if (cur[cur.length-1] === ' ') return;
         this.refreshData();
       },
       name: function(cur, old) {
@@ -70,7 +70,7 @@
       this.refreshData();
     },
     methods: {
-      refreshData: function() {
+      refreshData: debounce(function() {
         if (this.genestr === undefined) return;
         if (this.genestr.length === 0) return;
         this.loading = true;
@@ -84,7 +84,7 @@
           that.datas = res.data;
           that.loading = false;
         });
-      },
+      }, 500),
       routeTo: function(type, name) {
         this.$router.replace('/' + type + '/' + name);
       },

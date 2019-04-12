@@ -89,7 +89,7 @@
         const that = this;
         that.originDatas.push({});
         this.$http.get('/api/disease/' + this.name).then(res => {
-          that.datas = res.data.muts;
+          that.originDatas = res.data.muts;
           that.omuts = res.data.omuts;
           that.loading = false;
           that.disease = res.data.dis;

@@ -17,6 +17,7 @@
     "csvtojson": "^1.1.9",
     "cytoscape": "^3.2.8",
     "cytoscape-euler": "^1.2.0",
+    "debounce": "^1.2.0",
     "echarts": "^4.0.4",
     "fast-csv": "^2.4.1",
     "json2csv": "^4.0.2",

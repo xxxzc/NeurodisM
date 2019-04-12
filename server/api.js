@@ -148,8 +148,10 @@ router.get('/api/relation/:type/:n1/:n2', (req, res) => {
 
 function getPvalue(args) {
   return new Promise((res, rej) => {
-    let script = "Rscript ./r/p_value.R";
+    let script = "Rscript " + path.join('.', 'server', 'r', 'p_value.R');
     exec(script + ' ' + args, function(err, stdout, stderr) {
+      console.log(err);
+      console.log(stdout);
       res(stdout.slice(4));
     });
   });
@@ -179,7 +181,7 @@ router.get('/api/pvalue/:genes/:all', (req, res) => {
       let d = 23341 - glen - dglen + n;
       let pvalue = await getPvalue([a, b, c, d].join(' '));
       datas.push({
-        d: dis.d, p: Number(pvalue), g: genes
+        d: dis.d, p: Number(pvalue.trim()), g: genes
       });
     }
     res.jsonp(datas);
