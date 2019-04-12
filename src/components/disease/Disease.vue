@@ -98,7 +98,7 @@
           if (!that.disease.g)
             that.disease.g = [];
           that.numGenes = that.disease.g.length;
-          // that.filterData();
+          that.filterData();
         });
       },
       setNumDiss: function(value) {

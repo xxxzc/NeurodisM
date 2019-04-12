@@ -148,7 +148,7 @@ router.get('/api/relation/:type/:n1/:n2', (req, res) => {
 
 function getPvalue(args) {
   return new Promise((res, rej) => {
-    let script = "Rscript ./neurodism/server/r/p_value.R";
+    let script = "Rscript ./r/p_value.R";
     exec(script + ' ' + args, function(err, stdout, stderr) {
       res(stdout.slice(4));
     });
