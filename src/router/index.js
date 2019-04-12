@@ -11,7 +11,6 @@ import Mutations from '@/components/Mutations'
 Vue.use(Router);
 
 let router = new Router({
-  mode: 'history',
   base: 'neurodism',
   routes: [
     {
