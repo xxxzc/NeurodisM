@@ -16,12 +16,12 @@
         </p>
         <label class="label">Used Database</label>
           <b-field>
-            <b-radio-button v-model="selectedDb"
+            <b-radio-button v-model="selectedDb" size="is-small"
                 native-value="our">
                 <span>Our Database</span>
             </b-radio-button>
 
-            <b-radio-button v-model="selectedDb"
+            <b-radio-button v-model="selectedDb" size="is-small"
                 native-value="all">
                 <span>All Databases</span>
             </b-radio-button>
@@ -29,7 +29,9 @@
     </div>
     <b-field v-show="selectedType === 'Custom'">
       <b-input v-model="disease" placeholder="Disease Name"></b-input>
-      <b-input expanded v-model="genes" placeholder="A List of Gene Symbols (sperate by one white-space)"></b-input>
+      <b-input expanded v-model="genes" 
+        placeholder="A List of Gene Symbols (sperate by one white-space)"
+        :disabled="loadState"></b-input>
     </b-field>
     <b-field v-show="selectedType === 'File'" class="file">
         <b-dropdown hoverable>
@@ -75,7 +77,8 @@
     </div>
   </div>
 </div>
-<DGRelation v-show="selectedType === 'Custom' && genes.length > 0" :name="disease" :genestr="genes" :db="selectedDb"></DGRelation>
+<DGRelation v-show="selectedType === 'Custom' && genes.length > 0" 
+    :name="disease" :genestr="genes" :db="selectedDb"></DGRelation>
 
 <DGRelation v-show="selectedType === 'File' && dgDatas.length" 
     v-for="data in dgDatas" :key="data.name"
@@ -99,7 +102,8 @@ export default {
     genes: '',
     item0: {n: '', t: ''},
     item1: {n: '', t: ''},
-    selectedDb: 'our'
+    selectedDb: 'our',
+    loadState: false
   }),
   methods: {
     switchType: function (type) {
@@ -137,6 +141,10 @@ export default {
       if (item.t === '') return;
       this.$router.replace('/' + item.t + '/' + item.n);
     },
+    changeLoadState(x) {
+      console.log(x);
+      this.loadState = x;
+    }
   }
 }
 </script>

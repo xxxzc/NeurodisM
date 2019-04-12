@@ -71,6 +71,7 @@
     },
     methods: {
       refreshData: debounce(function() {
+        if (this.loading) return;
         if (this.genestr === undefined) return;
         if (this.genestr.length === 0) return;
         this.loading = true;

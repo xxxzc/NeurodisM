@@ -157,6 +157,11 @@ function getPvalue(args) {
   });
 }
 
+function getInterSection(l1, l2) {
+  let s2 = new Set(l2);
+  return l1.filter(x => s2.has(x));
+}
+
 router.get('/api/pvalue/:genes/:all', (req, res) => {
   db.collection('diseases').find({}).toArray(async (err, data) => {
     let gs = req.params.genes.split(',');
@@ -166,13 +171,10 @@ router.get('/api/pvalue/:genes/:all', (req, res) => {
     for (let dis of data) {
       let dis_g = dis.g;
       if (all === 'all' && dis.og) {
-        dis_g = dis_g.concat(Object.keys(dis.og));
+        dis_g = getInterSection(dis_g, Object.keys(dis.og));
       }
       let dglen = dis_g.length;
-      let genes = [];
-      for (let g of dis_g)
-        if (gs.indexOf(g) > -1)
-          genes.push(g);
+      let genes = getInterSection(dis_g, gs);
       let n = genes.length;
       if (n === 0) continue;
       let a = n;
