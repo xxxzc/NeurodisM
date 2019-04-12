@@ -26,6 +26,6 @@ export default {
     Vue.prototype.download = function (url, name) {
       createDownloadLink(url, name);
     },
-    Vue.prototype.apiserver = 'http://193.112.28.37';
+    Vue.prototype.apiserver = 'http://193.112.28.37:8070';
   }
 }
