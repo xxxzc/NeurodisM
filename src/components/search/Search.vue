@@ -30,8 +30,7 @@
     <b-field v-show="selectedType === 'Custom'">
       <b-input v-model="disease" placeholder="Disease Name"></b-input>
       <b-input expanded v-model="genes" 
-        placeholder="A List of Gene Symbols (sperate by one white-space)"
-        :disabled="loadState"></b-input>
+        placeholder="A List of Gene Symbols (sperate by one white-space)"></b-input>
     </b-field>
     <b-field v-show="selectedType === 'File'" class="file">
         <b-dropdown hoverable>
@@ -71,14 +70,14 @@
           @emitTag="item => {item1 = item}"></SimpleInput>
       </p>
     </div>
-    <a v-show="selectedType === 'Relation' || selectedType === 'File'" style="margin-top: 10px" class="button is-rounded is-outlined is-primary" @click="handleQuery">Query</a>
+    <a v-show="selectedType !== 'Disease or Gene'" style="margin-top: 10px" class="button is-rounded is-outlined is-primary" @click="handleQuery">Query</a>
     <div v-show="selectedType === 'Disease or Gene'" class="field">
       <SimpleInput @emitTag="handleRoute"></SimpleInput>
     </div>
   </div>
 </div>
 <DGRelation v-show="selectedType === 'Custom' && genes.length > 0" 
-    :name="disease" :genestr="genes" :db="selectedDb"></DGRelation>
+    :name="disease" :genestr="genes" :db="selectedDb" :query="customQuery"></DGRelation>
 
 <DGRelation v-show="selectedType === 'File' && dgDatas.length" 
     v-for="data in dgDatas" :key="data.name"
@@ -103,13 +102,17 @@ export default {
     item0: {n: '', t: ''},
     item1: {n: '', t: ''},
     selectedDb: 'our',
-    loadState: false
+    loadState: false,
+    customQuery: false
   }),
   methods: {
     switchType: function (type) {
         this.selectedType = type;
     },
     handleQuery: function () {
+      if (this.selectedType === 'Custom') {
+        this.customQuery = !this.customQuery;
+      }
       if (this.selectedType === 'File') {
         if (this.files && this.files.length > 0) {
           this.dgDatas = [];

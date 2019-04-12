@@ -150,8 +150,6 @@ function getPvalue(args) {
   return new Promise((res, rej) => {
     let script = "Rscript " + path.join('.', 'server', 'r', 'p_value.R');
     exec(script + ' ' + args, function(err, stdout, stderr) {
-      console.log(err);
-      console.log(stdout);
       res(stdout.slice(4));
     });
   });
@@ -186,7 +184,10 @@ router.get('/api/pvalue/:genes/:all', (req, res) => {
         d: dis.d, p: Number(pvalue.trim()), g: genes
       });
     }
-    res.jsonp(datas);
+    res.jsonp({
+      pvalues: datas,
+      cond: req.params.genes
+    });
   });
 });
 

@@ -11,6 +11,7 @@ Vue.prototype.$http = axios;
 Vue.config.productionTip = false;
 Vue.use(util);
 axios.defaults.baseURL = Vue.prototype.apiserver + '/neurodism';
+axios.defaults.baseURL = '/neurodism';
 // Vue.use(axios);
 Vue.use(Buefy, {
     defaultIconPack: 'fa'

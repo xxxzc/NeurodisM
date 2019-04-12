@@ -48,15 +48,15 @@
     components: {
       RelDiagram
     },
-    props: ['name', 'genestr', 'db'],
+    props: ['name', 'genestr', 'db', 'query'],
     data: () => ({
       // name: 'disease',
       datas: [],
       genes: [],
-      loading: true
+      loading: false
     }),
     watch: {
-      genestr: function(cur, old) {
+      query: function() {
         this.refreshData();
       },
       name: function(cur, old) {
@@ -71,7 +71,6 @@
     },
     methods: {
       refreshData: debounce(function() {
-        if (this.loading) return;
         if (this.genestr === undefined) return;
         if (this.genestr.length === 0) return;
         this.loading = true;
@@ -82,7 +81,10 @@
         let genes = this.genes.join(',');
         const that = this;
         this.$http.get('/api/pvalue/' + genes + '/' + this.db).then(res => {
-          that.datas = res.data;
+          console.log(res.data.cond, that.genestr.toUpperCase().split(/\s+/).join(','));
+          if (res.data.cond === that.genestr.toUpperCase().split(/\s+/).join(',')) {
+            that.datas = res.data.pvalues;
+          }
           that.loading = false;
         });
       }, 500),
